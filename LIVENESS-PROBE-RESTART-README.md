@@ -1,5 +1,5 @@
 The basic idea is to use a livenessProbe to restart a container when files in a specified config 
-directory change (f.e. because of a change in a ConfigMap attached as a volume).
+directory change (f.e. because of a change in a ConfigMap attached as a volume, ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#mounted-configmaps-are-updated-automatically ).
 
 app.py reads a 'MAGIC' value from the /etc/app/config.yml file at the start. It is then available via the http server at \<ip>:8000/var.
 
@@ -42,7 +42,7 @@ Now change MAGIC value in the liveness-probe-restart/configmap.yml and run:
 kubectl apply -f liveness-probe-restart/configmap.yml  
 ```
 
-After around 20-30 seconds, configmap value is updated on the node.
+After around 20-30 seconds, configmap value is updated on the node (this time can be shortened by changing appropriate flags for kubelet).
 After that, the config_update_check.py script used in the livenessProbe should fail, and trigger
 a restart of the container. You can observe it by running:
 ```bash
