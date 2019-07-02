@@ -23,8 +23,8 @@ docker build -t devops-sig-app .
 
 Apply configmap and app pod:
 ```bash
-kubectl apply -f env-rendering/configmap.yml  
-kubectl apply -f env-rendering/myapp.yml
+kubectl apply -f liveness-probe-restart/configmap.yml  
+kubectl apply -f liveness-probe-restart/myapp.yml
 ```
 
 To observe results, forward minikube ports in one shell:
@@ -37,9 +37,9 @@ In another shell:
 watch -n 1 curl localhost:8000/var
 ```
 
-Now change MAGIC value in the env-rendering/configmap.yml and run:
+Now change MAGIC value in the liveness-probe-restart/configmap.yml and run:
 ```bash
-kubectl apply -f env-rendering/configmap.yml  
+kubectl apply -f liveness-probe-restart/configmap.yml  
 ```
 
 After around 20-30 seconds, configmap value is updated on the node.
